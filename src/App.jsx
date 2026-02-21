@@ -43,7 +43,7 @@ const App = () => {
       <section className="relative h-[400px] md:h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1504609770332-e293508bb913?auto=format&fit=crop&q=80&w=1200"
+            src="https://images.unsplash.com/photo-1508444845599-13d942a00bd3?q=80&w=1200&auto=format&fit=crop"
             alt="Taipei Night View"
             className="w-full h-full object-cover"
           />
