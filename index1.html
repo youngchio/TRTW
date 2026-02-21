@@ -1,13 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>타이베이 여행 | 계획은 가볍게, 타이베이는 깊게</title>
-  </head>
-  <body>
+    <!-- React, ReactDOM, Babel, Tailwind -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50">
+    <div id="loading-screen">
+        <div class="loader-spinner"></div>
+        <div class="text-blue-600 font-bold animate-pulse">타이베이 여행 준비 중...</div>
+        <div id="error-message" class="mt-4">
+            <p>앱을 불러오는 데 실패했습니다.</p>
+            <p class="text-sm text-gray-500">로컬 파일을 서버 없이 실행할 경우 CORS 정책으로 인해 작동하지 않을 수 있습니다.<br>VS Code의 Live Server 등을 이용해 주세요.</p>
+        </div>
+    </div>
+
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+    <script>
+        // Check for file protocol and show warning if Babel fails to load external script
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (document.getElementById('loading-screen') && !window.appLoaded) {
+                    document.getElementById('error-message').style.display = 'block';
+                }
+            }, 5000);
+        });
+    </script>
+
+    <!-- Using type="text/babel" for external JSX script -->
+    <script type="text/babel" data-presets="react" src="script.js" data-type="module" onload="window.appLoaded=true"></script>
+</body>
 </html>
