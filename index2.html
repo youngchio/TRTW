@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>타이베이 나우 | 실시간 정보 보드</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13c8ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "sans": ["Noto Sans KR", "sans-serif"],
+                        "display": ["Noto Sans KR", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="w-full bg-orange-500 text-white py-3 px-6 flex items-center justify-center gap-4 sticky top-0 z-50 shadow-lg">
+<span class="material-symbols-outlined animate-pulse">warning</span>
+<p class="text-sm md:text-base font-bold tracking-wide">
+        MRT 지연 안내: 타이베이 메인역 신호 점검으로 인해 블루라인이 약 10분 지연 운행되고 있습니다. 
+        <a class="underline ml-2 hover:opacity-80" href="#">대체 경로 확인하기</a>
+</p>
+</div>
+<div class="layout-container flex flex-col items-center">
+<header class="w-full max-w-[1200px] flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark/50 backdrop-blur-md">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<div class="text-primary">
+<svg class="size-8" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h1 class="text-xl font-black tracking-tight text-slate-900 dark:text-white">타이베이 나우</h1>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-bold text-primary" href="#">실시간 업데이트</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors" href="#">노선도</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors" href="#">이벤트</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors" href="#">맛집 가이드</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5 gap-2 border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400 text-sm">cloud</span>
+<span class="text-xs font-bold">24°C</span>
+<span class="text-xs text-slate-500 uppercase">쓰린구</span>
+</div>
+<button class="bg-primary text-slate-900 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-sm">payments</span>
+                환율 계산
+            </button>
+<div class="size-9 rounded-full bg-slate-200 border-2 border-primary overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAt-SCYgmpOOnhg0Z8_fTvkDbxoChSzWb7guDZmyYw_Uaq75B1VZCuknQVUFolx9EbKicglNI5O0R13KPf8CASj-mfd6-VhvvmAJXirkUI5R5DndmvFdE6LLbHo_UyYyBY4ccZGiLAtvqqQOTSWkJm-31ZzAQ9YXgisu4bD5xKoClSDRClzvM-bmpMkdSLo_Xd3yOEKcA5AUCadVXnleNxnNZ1q2TblgXvM4J4lENZNS92oeN-IuTHobZfRmjCiK8JY1FgOLq45Z_R"/>
+</div>
+</div>
+</header>
+<main class="w-full max-w-[1200px] px-6 py-8 flex flex-col gap-10">
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-black flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">local_fire_department</span>
+                    이번 주 핫 이슈 &amp; 이벤트
+                </h2>
+<div class="flex gap-2">
+<button class="p-2 rounded-full border border-slate-200 hover:bg-white transition-all shadow-sm">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+</button>
+<button class="p-2 rounded-full border border-slate-200 hover:bg-white transition-all shadow-sm">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="flex gap-6 overflow-x-auto hide-scrollbar pb-4 -mx-2 px-2">
+<div class="min-w-[320px] md:min-w-[400px] bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-md group border border-slate-100 dark:border-slate-800">
+<div class="h-48 w-full relative overflow-hidden">
+<img alt="Taipei Lantern Festival" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUlYMgGfqZ_zU03XVTss2s1z-vC3HKBDZYoX8pbWOXzrV2ZunCdsZkxXUhxQiPTrw7doDXpjD6vClW7X0EQ8uUC5WbLgPononHZ_fjCMSF18J0zSc8tzZZH_Oy_icCrIbhx5Agbt4dK9rw1BBB50nBoIXAOBTJjD3ANl1VSI7M28BhZgazmJ4rhFMo4xdtuTXpQFLL7y_2mBX1qUtrF8kal8sPdIZkpaYs8tcLl94DNNfJAKPLXujZ3k1T2utHZwdcExMjAX8RpBr3"/>
+<div class="absolute top-4 left-4 bg-primary text-slate-900 text-[10px] font-bold px-2 py-1 rounded tracking-wider">축제</div>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold mb-1">2024 타이베이 등불 축제</h3>
+<p class="text-slate-500 text-sm mb-4">시먼딩의 유서 깊은 거리들이 수천 개의 아름다운 등불로 물듭니다.</p>
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">calendar_today</span> 2월 28일 종료
+                            </span>
+<button class="text-primary font-bold text-sm flex items-center gap-1 hover:underline">
+                                상세 정보 및 지도 <span class="material-symbols-outlined text-xs">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+<div class="min-w-[320px] md:min-w-[400px] bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-md group border border-slate-100 dark:border-slate-800">
+<div class="h-48 w-full relative overflow-hidden">
+<img alt="Huashan 1914 Creative Park" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC48N0YumB9eLxj7reGit4UNkfjUS7K5km63OQM2NHhBtlf5FPvC4W9u5WQYoTl_9EQQNtW_AmY7_BwauhNVYBhBnPwgCwKMkZ_PjE1mKwOb3h0zR8K2wz7Rs4iXZYOv1z2YdmZJm1GnFWGn7nEV-h7dskpdMud4786nSn7lrrT6kqq77kWk9sloNwcZ8SY-N_V-xVqnZfn7nLQKhKFAS5LscyHgAtSZTonDhNxhbC70dHXqcVOoeyac-8thWHN8YkCmHgsdIgnm_0S"/>
+<div class="absolute top-4 left-4 bg-primary text-slate-900 text-[10px] font-bold px-2 py-1 rounded tracking-wider">라이프스타일</div>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold mb-1">화산 1914 주말 팝업 스토어</h3>
+<p class="text-slate-500 text-sm mb-4">창의문화원구에서 열리는 로컬 공예품과 핸드드립 커피, 길거리 음식 마켓.</p>
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">schedule</span> 토요일 - 일요일
+                            </span>
+<button class="text-primary font-bold text-sm flex items-center gap-1 hover:underline">
+                                더 알아보기 <span class="material-symbols-outlined text-xs">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+<div class="min-w-[320px] md:min-w-[400px] bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-md group border border-slate-100 dark:border-slate-800">
+<div class="h-48 w-full relative overflow-hidden">
+<img alt="National Palace Museum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq9MXi2B8l-dtdp3cNKU9EAC70uU1WHcfHp-Sl73_3oMBVOLdjHrq_lkhTgiKGLTDlc5cjr3Wt5m9a0pG9CH1Eo9RfMQCFsqmMVBveSUTAo3fdu9L3WJC2zm870nxk553eZrqvnZ3CEzer8deogOFOYOKrW3dU534883T1NRorJxufMr7K7AjF0m_jkzua0TJ7pfrr2wEJRNPTPzxbMNVFoeZlMSNYxuHqilM9NF-GVX_R49XBFhQ8VoMwGskhoGPxcDzjEqEuoL7D"/>
+<div class="absolute top-4 left-4 bg-primary text-slate-900 text-[10px] font-bold px-2 py-1 rounded tracking-wider">컬처</div>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold mb-1">국립고궁박물원 특별전</h3>
+<p class="text-slate-500 text-sm mb-4">청나라 시대의 화려한 장신구와 보물들을 한시적으로 공개합니다.</p>
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">event</span> 이달의 전시
+                            </span>
+<button class="text-primary font-bold text-sm flex items-center gap-1 hover:underline">
+                                티켓 예매하기 <span class="material-symbols-outlined text-xs">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 flex flex-col gap-6">
+<div class="flex items-center gap-4 border-b border-slate-200 dark:border-slate-800 pb-2">
+<button class="text-slate-900 dark:text-white font-black text-lg border-b-4 border-primary pb-2">여행 필수 주의사항</button>
+<button class="text-slate-400 font-bold text-lg pb-2 px-2 hover:text-slate-600 transition-colors">MRT 가이드</button>
+</div>
+<div class="flex flex-col gap-4">
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 flex gap-4 hover:shadow-md transition-shadow">
+<div class="size-16 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-3xl">contactless</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<h4 class="font-bold text-slate-900 dark:text-white">이지카드(EasyCard) 충전 꿀팁</h4>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">금융</span>
+</div>
+<p class="text-sm text-slate-500 leading-relaxed mb-3">혼잡한 MRT 역 대신 가까운 편의점(세븐일레븐, 패밀리마트) 키오스크를 이용해 대기 시간을 줄이세요.</p>
+<div class="flex gap-4">
+<span class="text-xs text-slate-400 flex items-center gap-1"><span class="material-symbols-outlined text-xs">visibility</span> 2.4k 조회</span>
+<span class="text-xs text-slate-400 flex items-center gap-1"><span class="material-symbols-outlined text-xs">timer</span> 3분 읽기</span>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 flex gap-4 hover:shadow-md transition-shadow">
+<div class="size-16 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-3xl">wifi_tethering</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<h4 class="font-bold text-slate-900 dark:text-white">무료 iTaiwan 와이파이 설정법</h4>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">디지털</span>
+</div>
+<p class="text-sm text-slate-500 leading-relaxed mb-3">관광안내센터에서 여권을 등록하면 타이베이 시내 수천 개의 핫스팟에서 무료 와이파이를 사용할 수 있습니다.</p>
+<div class="flex gap-4">
+<span class="text-xs text-slate-400 flex items-center gap-1"><span class="material-symbols-outlined text-xs">visibility</span> 5.1k 조회</span>
+<span class="text-xs text-slate-400 flex items-center gap-1"><span class="material-symbols-outlined text-xs">timer</span> 2분 읽기</span>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 flex gap-4 hover:shadow-md transition-shadow">
+<div class="size-16 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-3xl">restaurant</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<h4 class="font-bold text-slate-900 dark:text-white">야시장 매너 및 이용 안내</h4>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">문화</span>
+</div>
+<p class="text-sm text-slate-500 leading-relaxed mb-3">라오허제, 쓰린 야시장의 줄서기 문화, 쓰레기 분리배출 방법 및 주요 결제 수단을 확인하세요.</p>
+<div class="flex gap-4">
+<span class="text-xs text-slate-400 flex items-center gap-1"><span class="material-symbols-outlined text-xs">visibility</span> 8.9k 조회</span>
+<span class="text-xs text-slate-400 flex items-center gap-1"><span class="material-symbols-outlined text-xs">timer</span> 5분 읽기</span>
+</div>
+</div>
+</div>
+<button class="w-full py-4 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl text-slate-400 font-bold hover:bg-slate-50 transition-colors">
+                        더 많은 여행 팁 불러오기
+                    </button>
+</div>
+</div>
+<div class="flex flex-col gap-8">
+<div class="bg-slate-900 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
+<div class="absolute -top-10 -right-10 bg-primary/20 size-40 rounded-full blur-3xl"></div>
+<h3 class="text-lg font-black mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">trending_up</span>
+                        로컬 핫토픽 뉴스
+                    </h3>
+<ul class="flex flex-col gap-4">
+<li class="flex items-start gap-3 group cursor-pointer">
+<span class="text-primary font-black text-xl italic">01</span>
+<div>
+<p class="text-sm font-bold group-hover:text-primary transition-colors">시먼딩역 화제의 맛집: 말차 라떼</p>
+<p class="text-[10px] text-slate-400 mt-1">#타이베이맛집 #말차덕후</p>
+</div>
+</li>
+<li class="flex items-start gap-3 group cursor-pointer border-t border-slate-800 pt-4">
+<span class="text-primary font-black text-xl italic">02</span>
+<div>
+<p class="text-sm font-bold group-hover:text-primary transition-colors">샹산(코끼리산): 이번 주 일몰 명당 시간</p>
+<p class="text-[10px] text-slate-400 mt-1">#타이베이야경 #출사지</p>
+</div>
+</li>
+<li class="flex items-start gap-3 group cursor-pointer border-t border-slate-800 pt-4">
+<span class="text-primary font-black text-xl italic">03</span>
+<div>
+<p class="text-sm font-bold group-hover:text-primary transition-colors">다안구 유바이크(Ubike) 2.0 신규 대여소</p>
+<p class="text-[10px] text-slate-400 mt-1">#타이베이교통 #친환경여행</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800">
+<h3 class="font-bold text-slate-900 dark:text-white mb-4">빠른 링크</h3>
+<div class="grid grid-cols-2 gap-3">
+<a class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-primary/10 transition-colors group" href="#">
+<span class="material-symbols-outlined text-primary mb-2">support_agent</span>
+<span class="text-xs font-bold text-slate-600 group-hover:text-slate-900 transition-colors">긴급 도움</span>
+</a>
+<a class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-primary/10 transition-colors group" href="#">
+<span class="material-symbols-outlined text-primary mb-2">map</span>
+<span class="text-xs font-bold text-slate-600 group-hover:text-slate-900 transition-colors">MRT 노선도</span>
+</a>
+<a class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-primary/10 transition-colors group" href="#">
+<span class="material-symbols-outlined text-primary mb-2">restaurant</span>
+<span class="text-xs font-bold text-slate-600 group-hover:text-slate-900 transition-colors">맛집 안내</span>
+</a>
+<a class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-primary/10 transition-colors group" href="#">
+<span class="material-symbols-outlined text-primary mb-2">hotel</span>
+<span class="text-xs font-bold text-slate-600 group-hover:text-slate-900 transition-colors">숙소 예약</span>
+</a>
+</div>
+</div>
+<div class="rounded-2xl overflow-hidden shadow-sm border border-slate-100 relative group h-48">
+<img alt="Taipei city map" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgfgKlwKAK0ofF0_I-3xGJVwoUyvTXQwlZgZbuuDAbZiPSr6KBLP0p4eGxLr3wz8JIgfluKKUE4RgXo2nz9MY75kSSlGbabxJc0aCfIJ7Uvz2z3iyfClHfBQeZUt2thq3OukNCHFU05_qo0CjyWHOwip86msz7YpAtRz8tR0dqXKIHvL2v2-0tXOfBrCqCbLSRv0LTdLiYkZNg1k0XAOdZfpE3nWkKf3lXE9ulr85enFFqEY6ZdNtCjlx_eaVGYeqPWiQYjovOiExA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex flex-col justify-end p-4">
+<p class="text-white text-xs font-bold uppercase tracking-widest opacity-80">실시간 교통 상황</p>
+<p class="text-white font-bold">인터랙티브 익스플로러</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="w-full border-t border-slate-200 dark:border-slate-800 mt-12 py-10 bg-white dark:bg-background-dark/30">
+<div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">location_city</span>
+<h2 class="text-lg font-bold">타이베이 나우</h2>
+</div>
+<p class="text-sm text-slate-500 leading-relaxed">대만 여행의 심장부를 탐험하기 위한 실시간 동반자입니다. 여행자의 안전과 즐거움을 위해 매분 업데이트됩니다.</p>
+</div>
+<div>
+<h4 class="font-bold mb-4">긴급 연락처</h4>
+<p class="text-sm text-slate-500 mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-xs">call</span> 관광 안내 핫라인: 112</p>
+<p class="text-sm text-slate-500 flex items-center gap-2"><span class="material-symbols-outlined text-xs">call</span> 긴급 전화: 119 / 110</p>
+</div>
+<div>
+<h4 class="font-bold mb-4">언어 설정</h4>
+<select class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-xs font-bold px-4 py-2 focus:ring-primary w-full">
+<option selected="">한국어</option>
+<option>English (US)</option>
+<option>繁體中文</option>
+<option>日本語</option>
+</select>
+</div>
+<div>
+<h4 class="font-bold mb-4">뉴스레터 구독</h4>
+<div class="flex gap-2">
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-xs flex-1 focus:ring-primary" placeholder="이메일 주소" type="email"/>
+<button class="bg-slate-900 text-white p-2 rounded-lg hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto px-6 mt-10 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">© 2024 타이베이 나우 미디어. All rights reserved.</p>
+</div>
+</footer>
+</div>
+
+</body></html>

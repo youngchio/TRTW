@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>초개인화 마이 트립 대시보드 - 타이베이</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13c8ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "sans": ["Noto Sans KR", "sans-serif"],
+                        "display": ["Noto Sans KR", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .ticket-cutout {
+            position: relative;
+        }
+        .ticket-cutout::after {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            background-color: #f6f8f8;
+            border-radius: 50%;
+        }
+        .ticket-cutout::before {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            background-color: #f6f8f8;
+            border-radius: 50%;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #13c8ec40;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 px-6 py-3 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">travel_explore</span>
+<h1 class="text-slate-900 dark:text-white text-xl font-extrabold tracking-tight">Taipei<span class="text-primary">Flow</span></h1>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-bold text-primary border-b-2 border-primary pb-1" href="#">대시보드</a>
+<a class="text-sm font-medium text-slate-500 hover:text-primary transition-colors" href="#">경로 최적화</a>
+<a class="text-sm font-medium text-slate-500 hover:text-primary transition-colors" href="#">탐색하기</a>
+<a class="text-sm font-medium text-slate-500 hover:text-primary transition-colors" href="#">커뮤니티</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-slate-400 group-focus-within:text-primary">
+<span class="material-symbols-outlined text-sm">search</span>
+</span>
+<input class="pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-full text-sm w-64 focus:ring-2 focus:ring-primary transition-all" placeholder="타이베이 명소 검색..." type="text"/>
+</div>
+<button class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
+<img alt="사용자 프로필" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa15NJARhLOSCd5Z5mAmE1XshB6Urq_rsIBSPMm-vYzKiFNkizxnr8PzlgWEtT9MjPzqrYpWr6UOACT_UhfiujTHI2nPULg-Q19Jbe-7_cCcSfGVkce96TVqkcppMnMPp9Y-EVn1ywvyvwOsAo7WEjbTybRUyrP4jcLtNFyFDi4EYssmKjViizFbPlfr0hqgflFLPejnt_E_Phw27aOK5XZZy7EWXIpy3IwN_laRl0ARypNcrrB1QoDJfN-KfYd0CrRl5kioTn9IKg"/>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col max-w-[1600px] mx-auto w-full p-6 gap-6 pb-24">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden group hover:shadow-md transition-shadow">
+<div class="p-4 flex flex-col h-full justify-between">
+<div class="flex justify-between items-start mb-2">
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded uppercase tracking-wider">항공편 BR197</span>
+<span class="material-symbols-outlined text-primary text-lg">flight_takeoff</span>
+</div>
+<div class="flex justify-between items-center mb-4">
+<div class="text-center">
+<p class="text-xs text-slate-400 font-medium">인천(ICN)</p>
+<p class="text-lg font-bold">09:30</p>
+</div>
+<div class="flex-1 flex flex-col items-center px-4">
+<div class="w-full border-t-2 border-dashed border-slate-200 dark:border-slate-700 relative">
+<span class="material-symbols-outlined absolute left-1/2 -top-2 -translate-x-1/2 text-xs text-slate-300">flight</span>
+</div>
+<p class="text-[10px] text-slate-400 mt-1">2시간 35분</p>
+</div>
+<div class="text-center">
+<p class="text-xs text-slate-400 font-medium">타이베이(TPE)</p>
+<p class="text-lg font-bold">11:05</p>
+</div>
+</div>
+<div class="pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<p class="text-[10px] font-bold text-slate-500">게이트 D7 • 좌석 12A</p>
+<p class="text-[10px] font-bold text-primary">예약번호 #AX7291B</p>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden group hover:shadow-md transition-shadow">
+<div class="p-4 flex flex-col h-full justify-between">
+<div class="flex justify-between items-start mb-2">
+<span class="px-2 py-1 bg-emerald-100 text-emerald-600 text-[10px] font-bold rounded uppercase tracking-wider">확정됨</span>
+<span class="material-symbols-outlined text-emerald-500 text-lg">hotel</span>
+</div>
+<div>
+<h3 class="font-bold text-sm truncate">그랜드 하얏트 타이베이</h3>
+<p class="text-xs text-slate-500">타이베이시 신이구</p>
+</div>
+<div class="flex justify-between mt-4">
+<div>
+<p class="text-[10px] text-slate-400 font-medium">체크인</p>
+<p class="text-sm font-bold">10월 12일, 15:00</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-slate-400 font-medium">객실</p>
+<p class="text-sm font-bold">1002호 (디럭스)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-2 bg-gradient-to-br from-primary to-[#0eb0cf] rounded-xl shadow-sm overflow-hidden text-white">
+<div class="p-4 flex items-center justify-between h-full">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-3xl">partly_cloudy_day</span>
+<div>
+<h3 class="text-2xl font-extrabold">24°C</h3>
+<p class="text-[10px] opacity-80 font-medium">오늘의 날씨: 타이베이</p>
+</div>
+</div>
+<div class="mt-3 flex gap-4">
+<div class="bg-white/20 rounded-lg p-2 flex-1">
+<p class="text-[10px] font-bold uppercase opacity-80 mb-1">코디 추천</p>
+<p class="text-xs font-semibold leading-tight">가벼운 린넨 셔츠, 편한 운동화와 휴대용 우산을 추천합니다.</p>
+</div>
+<div class="bg-white/20 rounded-lg p-2">
+<p class="text-[10px] font-bold uppercase opacity-80 mb-1">습도</p>
+<p class="text-xs font-semibold">82%</p>
+</div>
+</div>
+</div>
+<div class="w-24 h-24 hidden lg:block ml-4">
+<img alt="여행 코디 평면도" class="w-full h-full object-cover rounded-lg border-2 border-white/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKqFhTuWcBKEs0ExnhPvvGoK_sO_aGRlAoYlWMnXtPN99T2Mci9rdgmKWD8-C4yBfdFazIF04IqPGcA6ZUxbwRIK9XmJPGlGzEfwyWu0s6net4U1Z8yhr4HL2FNVaPr7JUfYwVUfqa1S2rSeJYJTYJEmVUOs9Tjyl0lM5oOeON_OjT5pRiqkjHi9sQ1AMnnRy3W18A2Y1Qh6xgWsfzX5n5BtGhGm3GYlALcE9pTCKgSXcxyBV0IfMlvaa6lQrTPzhkf3m4XcJx8Rkd"/>
+</div>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col lg:flex-row gap-6 min-h-[500px]">
+<div class="flex-[3] relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-800">
+<div class="absolute inset-0 z-0 bg-slate-200">
+<div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1533929736458-ca588d08c8be?q=80&amp;w=1200&amp;auto=format&amp;fit=crop')] bg-cover bg-center"></div>
+<div class="absolute inset-0 bg-slate-900/10 pointer-events-none"></div>
+</div>
+<div class="absolute top-4 left-4 right-4 z-10 flex gap-2">
+<div class="bg-white dark:bg-slate-900 shadow-xl rounded-xl p-2 flex items-center gap-2 flex-1 max-w-md">
+<span class="material-symbols-outlined text-primary ml-2">location_on</span>
+<input class="border-none focus:ring-0 text-sm bg-transparent flex-1" type="text" value="신이구 (Xinyi District)"/>
+<button class="bg-primary text-white p-2 rounded-lg hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-sm">search</span>
+</button>
+</div>
+<div class="flex gap-2">
+<button class="bg-white dark:bg-slate-900 px-3 py-2 rounded-xl shadow-lg flex items-center gap-2 text-xs font-bold hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined text-amber-400 fill-1">star</span>
+                        평점 4.0+
+                    </button>
+<button class="bg-white dark:bg-slate-900 px-3 py-2 rounded-xl shadow-lg flex items-center gap-2 text-xs font-bold hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined text-primary">restaurant</span>
+                        맛집
+                    </button>
+</div>
+</div>
+<div class="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 z-10 group cursor-pointer">
+<div class="bg-white dark:bg-slate-900 p-1 px-3 rounded-full shadow-xl border-2 border-primary flex items-center gap-2 transform group-hover:scale-110 transition-transform">
+<span class="text-xs font-bold">타이베이 101</span>
+<span class="text-[10px] font-bold text-amber-500">4.8 ★</span>
+</div>
+<div class="w-4 h-4 bg-primary rounded-full mx-auto -mt-1 border-2 border-white shadow-lg"></div>
+</div>
+<div class="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 group cursor-pointer">
+<div class="bg-white dark:bg-slate-900 p-1 px-3 rounded-full shadow-xl border-2 border-pink-500 flex items-center gap-2 transform group-hover:scale-110 transition-transform">
+<span class="text-xs font-bold">딘타이펑</span>
+<span class="text-[10px] font-bold text-amber-500">4.5 ★</span>
+</div>
+<div class="w-4 h-4 bg-pink-500 rounded-full mx-auto -mt-1 border-2 border-white shadow-lg"></div>
+</div>
+</div>
+<div class="flex-[2] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<h2 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">calendar_today</span>
+                    일정: 1일차
+                </h2>
+<div class="flex gap-1">
+<button class="p-1 rounded bg-slate-100 dark:bg-slate-800 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="p-1 rounded bg-slate-100 dark:bg-slate-800 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6 relative">
+<div class="relative pl-8">
+<div class="absolute left-0 top-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-[10px] font-bold z-10">1</div>
+<div class="absolute left-3 top-6 bottom-[-24px] w-0.5 border-l-2 border-dashed border-slate-200 dark:border-slate-800"></div>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-colors cursor-grab active:cursor-grabbing">
+<div class="flex justify-between mb-1">
+<span class="text-[10px] font-bold text-primary uppercase">11:30 - 12:30</span>
+<span class="material-symbols-outlined text-slate-400 text-sm">drag_indicator</span>
+</div>
+<h4 class="text-sm font-bold">공항 픽업 및 호텔 체크인</h4>
+<p class="text-xs text-slate-500 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">map</span>
+                            그랜드 하얏트 타이베이
+                        </p>
+</div>
+</div>
+<div class="relative pl-8 flex items-center gap-3">
+<div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+<span class="whitespace-nowrap bg-white dark:bg-slate-900 px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-800 text-[10px] font-bold text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">train</span>
+                        MRT 블루 라인 (15분)
+                    </span>
+<div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+</div>
+<div class="relative pl-8">
+<div class="absolute left-0 top-0 w-6 h-6 bg-slate-200 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 text-[10px] font-bold z-10">2</div>
+<div class="absolute left-3 top-6 bottom-[-24px] w-0.5 border-l-2 border-dashed border-slate-200 dark:border-slate-800"></div>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-colors cursor-grab active:cursor-grabbing">
+<div class="flex justify-between mb-1">
+<span class="text-[10px] font-bold text-slate-400 uppercase">13:00 - 14:30</span>
+<span class="material-symbols-outlined text-slate-400 text-sm">drag_indicator</span>
+</div>
+<h4 class="text-sm font-bold">딘타이펑 101점 점심 식사</h4>
+<div class="flex items-center gap-2 mt-2">
+<span class="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded font-bold">추천: 샤오롱바오</span>
+<span class="text-[10px] text-slate-500 font-bold">TWD 850</span>
+</div>
+</div>
+</div>
+<div class="relative pl-8 flex items-center gap-3">
+<div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+<span class="whitespace-nowrap bg-white dark:bg-slate-900 px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-800 text-[10px] font-bold text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">directions_walk</span>
+                        도보 이동 (5분)
+                    </span>
+<div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+</div>
+<div class="relative pl-8">
+<div class="absolute left-0 top-0 w-6 h-6 bg-slate-200 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 text-[10px] font-bold z-10">3</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-colors cursor-grab active:cursor-grabbing">
+<div class="flex justify-between mb-1">
+<span class="text-[10px] font-bold text-slate-400 uppercase">15:00 - 16:30</span>
+<span class="material-symbols-outlined text-slate-400 text-sm">drag_indicator</span>
+</div>
+<h4 class="text-sm font-bold">타이베이 101 전망대</h4>
+<p class="text-xs text-slate-500 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">confirmation_number</span>
+                            모바일 바우처 제시 필수
+                        </p>
+</div>
+</div>
+</div>
+<div class="p-4 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-100 dark:border-slate-800">
+<button class="w-full py-2 bg-white dark:bg-slate-900 border-2 border-dashed border-primary/30 rounded-xl text-xs font-bold text-primary hover:bg-primary/10 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                    장소 추가하기
+                </button>
+</div>
+</div>
+</div>
+</main>
+<footer class="fixed bottom-0 left-0 right-0 z-[60] p-4 flex justify-center pointer-events-none">
+<div class="max-w-[1200px] w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-primary/20 shadow-2xl rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-6 pointer-events-auto">
+<div class="flex items-center gap-4">
+<div class="p-3 bg-primary/20 rounded-xl text-primary">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<div>
+<h4 class="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider">실시간 예상 지출액</h4>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-black text-slate-900 dark:text-white tabular-nums">24,850</span>
+<span class="text-xs font-bold text-primary">대만 달러 (TWD)</span>
+<span class="material-symbols-outlined text-slate-300 mx-1">sync_alt</span>
+<span class="text-xl font-bold text-slate-500 tabular-nums">1,054,200</span>
+<span class="text-[10px] font-bold text-slate-400">대한민국 원 (KRW)</span>
+</div>
+</div>
+</div>
+<div class="h-10 w-px bg-slate-200 dark:bg-slate-700 hidden md:block"></div>
+<div class="flex-1 flex gap-4 overflow-x-auto custom-scrollbar pb-1">
+<div class="flex flex-col min-w-[100px]">
+<span class="text-[9px] font-bold text-slate-400 uppercase mb-1">식비 및 음료</span>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+<div class="bg-amber-400 h-full rounded-full" style="width: 65%;"></div>
+</div>
+<span class="text-[10px] font-bold mt-1 text-slate-600 dark:text-slate-400">TWD 5,200</span>
+</div>
+<div class="flex flex-col min-w-[100px]">
+<span class="text-[9px] font-bold text-slate-400 uppercase mb-1">교통비</span>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 30%;"></div>
+</div>
+<span class="text-[10px] font-bold mt-1 text-slate-600 dark:text-slate-400">TWD 2,100</span>
+</div>
+<div class="flex flex-col min-w-[100px]">
+<span class="text-[9px] font-bold text-slate-400 uppercase mb-1">쇼핑</span>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+<div class="bg-pink-400 h-full rounded-full" style="width: 85%;"></div>
+</div>
+<span class="text-[10px] font-bold mt-1 text-slate-600 dark:text-slate-400">TWD 17,550</span>
+</div>
+</div>
+<button class="bg-primary text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-105 transition-transform flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+            동선 최적화 실행
+        </button>
+</div>
+</footer>
+
+</body></html>
