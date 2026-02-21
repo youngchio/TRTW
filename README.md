@@ -1,16 +1,24 @@
-# React + Vite
+# Taipei Travel App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a modern React + Tailwind CSS frontend for the Taipei Travel App.
 
-Currently, two official plugins are available:
+## How to Run
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. Standalone Version (Immediate Preview)
+Just open `index.html` or `index1.html` in any web browser. It uses CDNs for React, Tailwind, and Babel, so it works without any installation.
 
-## React Compiler
+### 2. Development Version (For Developers)
+To run the full development environment with Vite:
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+The site will be available at `http://localhost:5173` (or the port shown in your terminal).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Project Structure
+- `index.html`: The main entry point (Standalone version).
+- `src/`: Contains the React source code.
+- `vite.config.js`: Vite configuration for Tailwind v4 and React.
+- `package.json`: Project dependencies and scripts.
