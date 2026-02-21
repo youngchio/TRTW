@@ -1,0 +1,11 @@
+body { font-family: 'Noto Sans KR', sans-serif; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.ticket-cutout { position: relative; }
+.ticket-cutout::after { content: ''; position: absolute; left: -8px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; background-color: #f6f8f8; border-radius: 50%; }
+.ticket-cutout::before { content: ''; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; background-color: #f6f8f8; border-radius: 50%; }
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #13c8ec40; border-radius: 10px; }
+.scroll-smooth { scroll-behavior: smooth; }
