@@ -336,7 +336,6 @@
                 </div>
             </div>
         </section>
-        <!-- Additional Taipei Now content truncated for brevity but maintained in state -->
     </div>
 
     <!-- MY TRIP SECTION -->
@@ -419,7 +418,6 @@
             <div class="flex-[3] relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-800 bg-slate-200">
                 <div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1533929736458-ca588d08c8be?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center"></div>
                 <div class="absolute inset-0 bg-slate-900/10"></div>
-                <!-- Dynamic markers could go here -->
             </div>
 
             <!-- Itinerary List -->
@@ -523,25 +521,30 @@
         itineraryList.innerHTML = '';
         tripItems.forEach((item, index) => {
             const div = document.createElement('div');
-            div.className = 'relative pl-8 animate-in fade-in slide-in-from-left-4 duration-300';
+            div.className = 'relative pl-8 transition-all duration-300';
             div.innerHTML = `
-                <div class="absolute left-0 top-0 w-6 h-6 ${index === 0 ? 'bg-primary' : 'bg-slate-200 dark:bg-slate-800'} rounded-full flex items-center justify-center text-white text-[10px] font-bold z-10">${index + 1}</div>
-                ${index < tripItems.length - 1 ? '<div class="absolute left-3 top-6 bottom-[-24px] w-0.5 border-l-2 border-dashed border-slate-200 dark:border-slate-800"></div>' : ''}
+                <div class="absolute left-0 top-0 w-6 h-6 \${index === 0 ? 'bg-primary' : 'bg-slate-200 dark:bg-slate-800'} rounded-full flex items-center justify-center text-white text-[10px] font-bold z-10">\${index + 1}</div>
+                \${index < tripItems.length - 1 ? '<div class="absolute left-3 top-6 bottom-[-24px] w-0.5 border-l-2 border-dashed border-slate-200 dark:border-slate-800"></div>' : ''}
                 <div class="bg-white dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-colors group relative">
-                    <button class="absolute -right-2 -top-2 size-6 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-lg" onclick="deleteItem(${item.id})">
+                    <button class="absolute -right-2 -top-2 size-6 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-lg delete-item-btn">
                         <span class="material-symbols-outlined text-xs">close</span>
                     </button>
                     <div class="flex justify-between mb-1">
-                        <span class="text-[10px] font-bold text-primary uppercase">${item.time}</span>
+                        <span class="text-[10px] font-bold text-primary uppercase">\${item.time}</span>
                         <span class="material-symbols-outlined text-slate-400 text-sm">drag_indicator</span>
                     </div>
-                    <h4 class="text-sm font-bold">${item.title}</h4>
+                    <h4 class="text-sm font-bold item-title"></h4>
                     <p class="text-xs text-slate-500 mt-1 flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[14px]">map</span> ${item.location}
+                        <span class="material-symbols-outlined text-[14px]">map</span> <span class="item-location"></span>
                     </p>
-                    ${item.price > 0 ? `<div class="mt-2 text-[10px] font-bold text-slate-400">비용: ${item.price} TWD</div>` : ''}
+                    \${item.price > 0 ? '<div class="mt-2 text-[10px] font-bold text-slate-400">비용: <span class="item-price"></span> TWD</div>' : ''}
                 </div>
             `;
+            div.querySelector('.item-title').textContent = item.title;
+            div.querySelector('.item-location').textContent = item.location;
+            if (item.price > 0) div.querySelector('.item-price').textContent = item.price.toLocaleString();
+            div.querySelector('.delete-item-btn').onclick = () => deleteItem(item.id);
+
             itineraryList.appendChild(div);
         });
         updateBudget();
@@ -551,23 +554,23 @@
         const totalTwd = tripItems.reduce((sum, i) => sum + i.price, 0);
         const totalKrw = Math.round(totalTwd * exchangeRate);
 
-        totalTwdEl.textContent = totalTwd.toLocaleString();
-        totalKrwEl.textContent = totalKrw.toLocaleString();
-        totalBudgetDisplay.textContent = '₩' + totalKrw.toLocaleString();
+        if (totalTwdEl) totalTwdEl.textContent = totalTwd.toLocaleString();
+        if (totalKrwEl) totalKrwEl.textContent = totalKrw.toLocaleString();
+        if (totalBudgetDisplay) totalBudgetDisplay.textContent = '₩' + totalKrw.toLocaleString();
 
         const foodTwd = tripItems.filter(i => i.category === 'food').reduce((s, i) => s + i.price, 0);
         const transportTwd = tripItems.filter(i => i.category === 'transport').reduce((s, i) => s + i.price, 0);
         const otherTwd = tripItems.filter(i => !['food', 'transport'].includes(i.category)).reduce((s, i) => s + i.price, 0);
 
-        barFood.style.width = Math.min((foodTwd / (totalTwd || 1)) * 100, 100) + '%';
-        barTransport.style.width = Math.min((transportTwd / (totalTwd || 1)) * 100, 100) + '%';
-        barOther.style.width = Math.min((otherTwd / (totalTwd || 1)) * 100, 100) + '%';
+        if (barFood) barFood.style.width = Math.min((foodTwd / (totalTwd || 1)) * 100, 100) + '%';
+        if (barTransport) barTransport.style.width = Math.min((transportTwd / (totalTwd || 1)) * 100, 100) + '%';
+        if (barOther) barOther.style.width = Math.min((otherTwd / (totalTwd || 1)) * 100, 100) + '%';
 
         const percent = Math.min((totalTwd / budgetLimit) * 100, 100);
-        budgetProgressBar.style.width = percent + '%';
-        budgetPercentText.textContent = Math.round(percent) + '% 사용됨';
+        if (budgetProgressBar) budgetProgressBar.style.width = percent + '%';
+        if (budgetPercentText) budgetPercentText.textContent = Math.round(percent) + '% 사용됨';
 
-        if (tripItems.length > 0) {
+        if (tripItems.length > 0 && nextDestinationText) {
             nextDestinationText.textContent = tripItems[tripItems.length - 1].title;
         }
     }
@@ -577,8 +580,13 @@
         renderItinerary();
     };
 
-    // --- EVENT LISTENERS ---
-    document.getElementById('add-place-btn').addEventListener('click', () => {
+    // --- EVENT LISTENERS & LOGIC ---
+    const safeAddEventListener = (id, event, callback) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener(event, callback);
+    };
+
+    safeAddEventListener('add-place-btn', 'click', () => {
         const title = prompt('추가할 장소 이름을 입력하세요:');
         if (title) {
             const price = parseInt(prompt('예상 비용(TWD)을 입력하세요:', '0')) || 0;
@@ -594,43 +602,46 @@
         }
     });
 
-    // Slider Logic
     const slider = document.getElementById('event-slider');
-    document.getElementById('slider-next').onclick = () => slider.scrollBy({ left: 400, behavior: 'smooth' });
-    document.getElementById('slider-prev').onclick = () => slider.scrollBy({ left: -400, behavior: 'smooth' });
+    const sliderNext = document.getElementById('slider-next');
+    const sliderPrev = document.getElementById('slider-prev');
+    if (slider) {
+        if (sliderNext) sliderNext.onclick = () => slider.scrollBy({ left: 400, behavior: 'smooth' });
+        if (sliderPrev) sliderPrev.onclick = () => slider.scrollBy({ left: -400, behavior: 'smooth' });
+    }
 
-    // Search Logic
-    document.getElementById('global-search').addEventListener('input', (e) => {
+    safeAddEventListener('global-search', 'input', (e) => {
         const term = e.target.value.toLowerCase();
         document.querySelectorAll('.curation-card').forEach(card => {
-            const title = card.getAttribute('data-title').toLowerCase();
+            const title = (card.getAttribute('data-title') || '').toLowerCase();
             card.style.display = title.includes(term) ? 'block' : 'none';
         });
     });
 
     // ScrollSpy Logic
-    const sections = ['home', 'taipei-now', 'my-trip'];
     const navLinks = document.querySelectorAll('.nav-link');
     window.addEventListener('scroll', () => {
         let current = '';
-        sections.forEach(id => {
+        const scrollPos = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+        ['home', 'taipei-now', 'my-trip'].forEach(id => {
             const section = document.getElementById(id);
-            const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 150) {
+            if (section && scrollPos >= section.offsetTop - 150) {
                 current = id;
             }
         });
 
         navLinks.forEach(link => {
             link.classList.remove('text-primary');
-            if (link.getAttribute('href') === `#${current}`) {
+            if (link.getAttribute('href') === `#\${current}`) {
                 link.classList.add('text-primary');
             }
         });
     });
 
     // --- INITIALIZE ---
-    renderItinerary();
+    if (itineraryList) {
+        renderItinerary();
+    }
 </script>
 
 </body>
