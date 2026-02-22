@@ -1,11 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/* Custom styles for the Taipei Travel App */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
 
 body {
     font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -17,18 +15,8 @@ body {
     scrollbar-width: none;
 }
 
-#loading-screen {
-    position: fixed;
-    inset: 0;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    transition: opacity 0.5s ease-out;
-}
-
+/* Loader Styles are moved to index1.html for immediate feedback,
+   but kept here as a backup for other pages. */
 .loader-spinner {
     width: 40px;
     height: 40px;
@@ -36,17 +24,9 @@ body {
     border-top: 4px solid #3b82f6;
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin-bottom: 16px;
 }
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-#error-message {
-    display: none;
-    padding: 20px;
-    color: #ef4444;
-    text-align: center;
 }

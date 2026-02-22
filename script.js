@@ -1,5 +1,7 @@
+// Use global React and ReactDOM provided by CDN
 const { useState, useEffect } = React;
 
+// Lucide-like Icons
 const HomeIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
 );
@@ -14,12 +16,23 @@ const UserIcon = () => (
 );
 
 const App = () => {
+    const [isAppVisible, setIsAppVisible] = useState(false);
+
     useEffect(() => {
-        const loader = document.getElementById('loading-screen');
-        if (loader) {
-            loader.style.opacity = '0';
-            setTimeout(() => loader.remove(), 500);
-        }
+        // Small delay to ensure React has fully painted
+        const timer = setTimeout(() => {
+            const loader = document.getElementById('loading-screen');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.remove();
+                    setIsAppVisible(true);
+                }, 500);
+            } else {
+                setIsAppVisible(true);
+            }
+        }, 1000);
+        return () => clearTimeout(timer);
     }, []);
 
     const curations = [
@@ -58,12 +71,12 @@ const App = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-slate-50 pb-20">
+        <div className={`min-h-screen bg-slate-50 pb-20 transition-opacity duration-500 ${isAppVisible ? 'opacity-100' : 'opacity-0'}`}>
             {/* Hero Section */}
             <section className="relative h-[400px] md:h-[600px] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0">
                     <img
-                        src="https://images.unsplash.com/photo-1541194577687-8c63bf9e7ee3?q=80&w=1200&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1504609770352-3287267d5ec3?q=80&w=1200&auto=format&fit=crop"
                         alt="Taipei Night View"
                         className="w-full h-full object-cover"
                     />
@@ -157,6 +170,7 @@ const App = () => {
     );
 };
 
+// Mount the app
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
 window.appLoaded = true;
