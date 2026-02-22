@@ -15,7 +15,7 @@ body {
     scrollbar-width: none;
 }
 
-/* Loader Styles are moved to index1.html for immediate feedback,
+/* Loader Styles are moved to index.html for immediate feedback,
    but kept here as a backup for other pages. */
 .loader-spinner {
     width: 40px;
